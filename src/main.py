@@ -5,7 +5,7 @@ from os import environ
 environ['SDL_VIDEO_WINDOW_POS'] = "500,200"
 py.init()
 
-screen = py.display.set_mode((800, 600))
+screen = py.display.set_mode((800, 700))
 screen.fill((49, 51, 53))
 
 py.display.set_caption("Visualising Sorting Algorithms")
@@ -29,8 +29,8 @@ while run:
             run = False
 
     for i in range(arr_size):
-        recs[arr[i]] = py.Rect(start_pos, 0, rec_width, arr[i]*1.5)
-        recs[arr[i]].bottom = 600
+        recs[arr[i]] = py.Rect(start_pos, 0, rec_width, arr[i]*2)
+        recs[arr[i]].bottom = 700
         py.draw.rect(screen, (0, 153, 76),
                      recs[arr[i]])
         start_pos += rec_width + border_width
