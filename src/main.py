@@ -29,7 +29,7 @@ while run:
             run = False
 
     for i in range(arr_size):
-        recs[arr[i]] = py.Rect(start_pos, 0, rec_width, arr[i])
+        recs[arr[i]] = py.Rect(start_pos, 0, rec_width, arr[i]*1.5)
         recs[arr[i]].bottom = 600
         py.draw.rect(screen, (0, 153, 76),
                      recs[arr[i]])
