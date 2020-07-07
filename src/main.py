@@ -17,6 +17,7 @@ rec_width = 10
 start_pos = 200
 
 arr = randint(arr_range[0], arr_range[1], arr_size)
+recs = dict()  # Dictionary contains the number and it's rectangle
 
 while run:
 
@@ -25,10 +26,15 @@ while run:
             run = False
 
     for i in range(arr_size):
+        recs[arr[i]] = py.Rect(start_pos, 100, rec_width, arr[i]*2)
         py.draw.rect(DISPLAY, (255, 255, 255),
                      (start_pos, 100, rec_width, arr[i]*2))
         start_pos += rec_width
-
     py.display.update()
 
+print(recs)
+print(arr)
+
+for val in recs.values():
+    print(val)
 py.quit()
