@@ -14,13 +14,14 @@ class Button():
         settings = {
             "colour": py.Color('red'),
             "text": None,
-            "font": py.font.Font('Arial', 16),
+            "font": py.font.SysFont('Arial', 16),
             "font_colour": py.Color("white"),
             "call_on_release": True,
-            "clicked_color": None,
+            "clicked_colour": None,
+            "clicked_font_colour": None,
             "border_colour": py.Color('black'),
             "border_hover_colour": py.Color('yellow'),
-            "radius": 3,
+            "radius": 3
         }
 
         for kwarg in kwargs:
@@ -51,14 +52,50 @@ class Button():
         if self.clicked and self.call_on_release:
             if self.check_hover():
                 self.click_action()
-            self.clicked = False
+        self.clicked = False
 
     def check_hover(self):
         if self.rect.collidepoint(py.mouse.get_pos()):
             if not self.hovered:
                 self.hovered = True
             return True
-        return False
+        else:
+            self.hovered = False
+            return False
 
-    def draw(self):
-        pass
+    def _render_region(self, image, rect, colour, rad):
+        corners = rect.inflate(-2*rad, -2*rad)
+        for attribute in ("topleft", "topright", "bottomleft", "bottomright"):
+            py.draw.circle(image, colour, getattr(corners, attribute), rad)
+        image.fill(colour, rect.inflate(-2*rad, 0))
+        image.fill(colour, rect.inflate(0, -2*rad))
+
+    def round_rect(self, surface, rect, colour, rad=20, border=0, inside=(0, 0, 0, 0)):
+        rect = py.Rect(rect)
+        zeroed_rect = rect.copy()
+        zeroed_rect.topleft = 0, 0
+        image = py.Surface(rect.size).convert_alpha()
+        image.fill((0, 0, 0, 0))
+        self._render_region(image, zeroed_rect, colour, rad)
+        if border:
+            zeroed_rect.inflate_ip(-2*border, -2*border)
+            self._render_region(image, zeroed_rect, inside, rad)
+        surface.blit(image, rect)
+
+    def draw(self, surface):
+        colour = self.colour
+        text = self.text
+        border = self.border_colour
+        self.check_hover()
+
+        if self.clicked and self.clicked_colour:
+            colour = self.clicked_colour
+            if self.clicked_font_colour:
+                text = self.clicked_text
+        if self.hovered and not self.clicked:
+            border = self.border_hover_colour
+
+        self.round_rect(surface, self.rect, border, self.radius, 1, colour)
+        if self.text:
+            text_rect = text.get_rect(center=self.rect.center)
+            surface.blit(text, text_rect)
