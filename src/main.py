@@ -27,16 +27,10 @@ def gen_arr_btn_action():
     arr = randint(arr_range[0], arr_range[1], arr_size)
 
 
-settings = {
-    'font': py.font.Font(None, 16),
-    'font_colour': (255, 255, 255),
-    'border_colour': (0, 0, 0),
-}
-
 arr, arr_visualised = randint(arr_range[0], arr_range[1], arr_size), False
 recs = dict()  # Dictionary contains the number and it's rectangle
 gen_arr_btn = Button(rect=(10, 10, 115, 25),
-                     click_action=gen_arr_btn_action, text='Generate New Array', **settings)
+                     click_action=gen_arr_btn_action, text='Generate New Array', font=py.font.Font(None, 16))
 
 while run:
 
