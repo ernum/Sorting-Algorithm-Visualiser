@@ -70,7 +70,7 @@ class Button():
         image.fill(colour, rect.inflate(-2*rad, 0))
         image.fill(colour, rect.inflate(0, -2*rad))
 
-    def round_rect(self, surface, rect, colour, rad=20, border=0, inside=(0, 0, 0, 0)):
+    def round_rect(self, screen, rect, colour, rad=20, border=0, inside=(0, 0, 0, 0)):
         rect = py.Rect(rect)
         zeroed_rect = rect.copy()
         zeroed_rect.topleft = 0, 0
@@ -80,9 +80,9 @@ class Button():
         if border:
             zeroed_rect.inflate_ip(-2*border, -2*border)
             self._render_region(image, zeroed_rect, inside, rad)
-        surface.blit(image, rect)
+        screen.blit(image, rect)
 
-    def draw(self, surface):
+    def draw(self, screen):
         colour = self.colour
         text = self.text
         border = self.border_colour
@@ -95,7 +95,7 @@ class Button():
         if self.hovered and not self.clicked:
             border = self.border_hover_colour
 
-        self.round_rect(surface, self.rect, border, self.radius, 1, colour)
+        self.round_rect(screen, self.rect, border, self.radius, 1, colour)
         if self.text:
             text_rect = text.get_rect(center=self.rect.center)
-            surface.blit(text, text_rect)
+            screen.blit(text, text_rect)
