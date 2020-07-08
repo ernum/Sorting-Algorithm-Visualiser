@@ -41,7 +41,7 @@ while run:
 
     gen_arr_btn.draw(screen)
 
-    if arr_visualised == False:
+    if not arr_visualised:
         screen.fill((49, 51, 53))
         for i in range(arr_size):
             recs[arr[i]] = py.Rect(start_pos, 0, rec_width, arr[i]*2)
@@ -50,8 +50,8 @@ while run:
                          recs[arr[i]])
             start_pos += rec_width + border_width
         arr_visualised = True
+        start_pos = 50
 
-    start_pos = 50
     py.display.update()
 
 py.quit()
