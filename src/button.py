@@ -21,7 +21,10 @@ class Button():
             "clicked_font_colour": None,
             "border_colour": py.Color('black'),
             "border_hover_colour": py.Color('yellow'),
-            "radius": 3
+            "radius": 3,
+            "disabled": True,
+            "disabled_colour": py.Color('grey'),
+            "disabled_border_colour": py.Color('white')
         }
 
         for kwarg in kwargs:
@@ -38,9 +41,11 @@ class Button():
 
     def get_event(self, event):
         if event.type == py.MOUSEBUTTONDOWN and event.button == 1:
-            self.on_click(event)
+            if not self.disabled:
+                self.on_click(event)
         elif event.type == py.MOUSEBUTTONUP and event.button == 1:
-            self.on_release(event)
+            if not self.disabled:
+                self.on_release(event)
 
     def on_click(self, event):
         if self.check_hover():
@@ -82,18 +87,25 @@ class Button():
             self._render_region(image, zeroed_rect, inside, rad)
         screen.blit(image, rect)
 
+    def change_disabled_status(self):
+        self.disabled = not self.disabled
+
     def draw(self, screen):
         colour = self.colour
         text = self.text
         border = self.border_colour
         self.check_hover()
 
-        if self.clicked and self.clicked_colour:
-            colour = self.clicked_colour
-            if self.clicked_font_colour:
-                text = self.clicked_text
-        if self.hovered and not self.clicked:
-            border = self.border_hover_colour
+        if not self.disabled:
+            if self.clicked and self.clicked_colour:
+                colour = self.clicked_colour
+                if self.clicked_font_colour:
+                    text = self.clicked_text
+            if self.hovered and not self.clicked:
+                border = self.border_hover_colour
+        else:
+            colour = self.disabled_colour
+            border = self.disabled_border_colour
 
         self.round_rect(screen, self.rect, border, self.radius, 1, colour)
         if self.text:
