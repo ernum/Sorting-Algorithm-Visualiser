@@ -1,5 +1,6 @@
 import pygame as py
 from text import Text
+
 py.init()
 
 screen = py.display.set_mode((800, 700))

@@ -13,9 +13,10 @@ class Text():
 
     def process_kwargs(self, kwargs):
         settings = {
+            "text_size": 100,
             "position": (800, 700),
-            "font_colour": py.Color('black'),
-            "background_colour": py.Color('white')
+            "font_colour": (255, 255, 255),
+            "background_colour": (0, 0, 0)
         }
 
         for kwarg in kwargs:
@@ -27,10 +28,11 @@ class Text():
         self.__dict__.update(settings)
 
     def text_objects(self, font):
-        textSurface = font.render(self.text, True, (255, 255, 255))
+        textSurface = font.render(self.text, True, self.font_colour)
         return textSurface, textSurface.get_rect()
 
     def generate_text(self):
-        font = py.font.Font(None, 100)
+        self.background = py.Rect()
+        font = py.font.Font(None, self.text_size)
         self.TextSurf, self.TextRect = self.text_objects(font)
         self.TextRect.center = ((self.text_width/2), (self.text_height/2))
