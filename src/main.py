@@ -34,7 +34,7 @@ def sort_arr_btn_action():
 arr, arr_visualised = randint(arr_range[0], arr_range[1], arr_size), False
 recs = dict()  # Dictionary contains the number and it's rectangle
 gen_arr_btn = Button(rect=(10, 10, 125, 25),
-                     click_action=gen_arr_btn_action, text='Generate New Array', font=py.font.Font(None, 16))
+                     click_action=gen_arr_btn_action, text='Generate New Array', font=py.font.Font(None, 16), disabled=False)
 sort_arr_btn = Button(rect=(10, 40, 125, 25), click_action=sort_arr_btn_action,
                       text='Sort Array', font=py.font.Font(None, 16))
 
