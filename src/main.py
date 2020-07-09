@@ -27,10 +27,16 @@ def gen_arr_btn_action():
     arr = randint(arr_range[0], arr_range[1], arr_size)
 
 
+def sort_arr_btn_action():
+    print("Button 2")
+
+
 arr, arr_visualised = randint(arr_range[0], arr_range[1], arr_size), False
 recs = dict()  # Dictionary contains the number and it's rectangle
-gen_arr_btn = Button(rect=(10, 10, 115, 25),
+gen_arr_btn = Button(rect=(10, 10, 125, 25),
                      click_action=gen_arr_btn_action, text='Generate New Array', font=py.font.Font(None, 16))
+sort_arr_btn = Button(rect=(10, 40, 125, 25), click_action=sort_arr_btn_action,
+                      text='Sort Array', font=py.font.Font(None, 16))
 
 while run:
 
@@ -38,7 +44,9 @@ while run:
         if event.type == py.QUIT:
             run = False
         gen_arr_btn.get_event(event)
+        sort_arr_btn.get_event(event)
 
+    sort_arr_btn.draw(screen)
     gen_arr_btn.draw(screen)
 
     if not arr_visualised:
