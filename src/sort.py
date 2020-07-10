@@ -2,14 +2,12 @@ import pygame as py
 from time import sleep
 
 
-def insertion(screen, recs, arr_size):
+def insertion(screen, recs):
     i = 1
     while i < len(recs):
         j = i
         while j > 0 and recs[j-1].height > recs[j].height:
-            recs[j].height, recs[j-1].height = recs[j-1].height, recs[j].height
-            recs[j].bottom = 700
-            recs[j-1].bottom = 700
+            swap(recs, j-1, j)
             j -= 1
         screen.fill((49, 51, 53))
         for rec in recs:
@@ -20,4 +18,6 @@ def insertion(screen, recs, arr_size):
 
 
 def swap(recs, left, right):
-    recs()
+    recs[left].height, recs[right].height = recs[right].height, recs[left].height
+    recs[left].bottom = 700
+    recs[right].bottom = 700

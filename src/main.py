@@ -30,7 +30,7 @@ def gen_arr_btn_action():
 
 def sort_arr_btn_action():
     global screen, recs, arr_size
-    sort.insertion(screen, recs, arr_size)
+    sort.insertion(screen, recs)
     sort_arr_btn.change_disabled_status()
     gen_arr_btn.change_disabled_status()
     insertion_sort_btn.amount_clicked += 1
