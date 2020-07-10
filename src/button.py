@@ -7,6 +7,8 @@ class Button():
         self.click_action = click_action
         self.clicked = False
         self.hovered = False
+        self.amount_clicked = 0
+        self.clicked_status = False
         self.process_kwargs(kwargs)
         self.render_text()
 
@@ -24,7 +26,8 @@ class Button():
             "radius": 3,
             "disabled": True,
             "disabled_colour": py.Color('grey'),
-            "disabled_border_colour": py.Color('white')
+            "disabled_border_colour": py.Color('white'),
+            "clicked_border_colour": None
         }
 
         for kwarg in kwargs:
@@ -40,11 +43,10 @@ class Button():
             self.text = self.font.render(self.text, True, self.font_colour)
 
     def get_event(self, event):
-        if event.type == py.MOUSEBUTTONDOWN and event.button == 1:
-            if not self.disabled:
+        if not self.disabled:
+            if event.type == py.MOUSEBUTTONDOWN and event.button == 1:
                 self.on_click(event)
-        elif event.type == py.MOUSEBUTTONUP and event.button == 1:
-            if not self.disabled:
+            elif event.type == py.MOUSEBUTTONUP and event.button == 1:
                 self.on_release(event)
 
     def on_click(self, event):
@@ -56,6 +58,7 @@ class Button():
     def on_release(self, event):
         if self.clicked and self.call_on_release:
             if self.check_hover():
+                self.clicked_status = True
                 self.click_action()
         self.clicked = False
 
@@ -103,6 +106,11 @@ class Button():
                     text = self.clicked_text
             if self.hovered and not self.clicked:
                 border = self.border_hover_colour
+            if self.clicked_border_colour and self.amount_clicked % 2 != 0:
+                border = self.clicked_border_colour
+            if self.clicked_status:
+                self.amount_clicked += 1
+                self.clicked_status = False
         else:
             colour = self.disabled_colour
             border = self.disabled_border_colour
