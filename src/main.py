@@ -69,11 +69,11 @@ while run:
 
     if not arr_visualised:
         rects = []
-        screen.fill((49, 51, 53))
+        screen.fill((0, 0, 0))
         for i in range(arr_size):
             rects.append(py.Rect(start_pos, 0, rect_width, arr[i]*2))
             rects[i].bottom = 700
-            py.draw.rect(screen, (0, 153, 76),
+            py.draw.rect(screen, (255, 255, 255),
                          rects[i])
             start_pos += rect_width + border_width
         arr_visualised = True
