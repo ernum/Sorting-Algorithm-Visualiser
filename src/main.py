@@ -44,6 +44,10 @@ def insertion_sort_btn_action():
     gen_arr_btn.change_disabled_status()
 
 
+def quick_sort_btn_action():
+    pass
+
+
 arr, arr_visualised = randint(arr_range[0], arr_range[1], arr_size), False
 gen_arr_btn = Button(rect=(10, 10, 125, 25),
                      click_action=gen_arr_btn_action, text='Generate New Array', font=py.font.Font(None, 16), disabled=False)
@@ -51,7 +55,8 @@ sort_arr_btn = Button(rect=(10, 40, 125, 25), click_action=sort_arr_btn_action,
                       text='Sort Array', font=py.font.Font(None, 16), disabled=True)
 insertion_sort_btn = Button(rect=(650, 10, 125, 25), click_action=insertion_sort_btn_action,
                             text='Insertion Sort', font=py.font.Font(None, 16), clicked_border_colour=py.Color('yellow'), disabled=False)
-
+quick_sort_btn = Button(rect=(650, 40, 125, 25), click_action=quick_sort_btn_action,
+                        text='Quick Sort', font=py.font.Font(None, 16), clicked_border_colour=py.Color('yellow'), disabled=False)
 
 while run:
 
@@ -62,10 +67,12 @@ while run:
         gen_arr_btn.get_event(event)
         sort_arr_btn.get_event(event)
         insertion_sort_btn.get_event(event)
+        quick_sort_btn.get_event(event)
 
     sort_arr_btn.draw(screen)
     gen_arr_btn.draw(screen)
     insertion_sort_btn.draw(screen)
+    quick_sort_btn.draw(screen)
 
     if not arr_visualised:
         rects = []
