@@ -26,6 +26,8 @@ def gen_arr_btn_action():
     global arr, arr_visualised
     arr_visualised = False
     arr = randint(arr_range[0], arr_range[1], arr_size)
+    if insertion_sort_btn.disabled:
+        insertion_sort_btn.change_disabled_status()
 
 
 def sort_arr_btn_action():
@@ -34,6 +36,7 @@ def sort_arr_btn_action():
     sort_arr_btn.change_disabled_status()
     gen_arr_btn.change_disabled_status()
     insertion_sort_btn.amount_clicked += 1
+    insertion_sort_btn.change_disabled_status()
 
 
 def insertion_sort_btn_action():
