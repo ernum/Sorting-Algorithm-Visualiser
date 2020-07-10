@@ -1,5 +1,4 @@
 import pygame as py
-from time import sleep
 
 FPS = 60
 clock = py.time.Clock()
