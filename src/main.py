@@ -17,7 +17,7 @@ py.display.set_icon(py.image.load("images/icon.png"))
 run = True
 arr_size = 60
 arr_range = [50, 300]
-rec_width = 10
+rect_width = 10
 start_pos = 50
 border_width = 2
 
@@ -31,8 +31,8 @@ def gen_arr_btn_action():
 
 
 def sort_arr_btn_action():
-    global screen, recs, arr_size
-    sort.insertion(screen, recs)
+    global screen, rects, arr_size
+    sort.insertion(screen, rects)
     sort_arr_btn.change_disabled_status()
     gen_arr_btn.change_disabled_status()
     insertion_sort_btn.amount_clicked += 1
@@ -68,14 +68,14 @@ while run:
     insertion_sort_btn.draw(screen)
 
     if not arr_visualised:
-        recs = []
+        rects = []
         screen.fill((49, 51, 53))
         for i in range(arr_size):
-            recs.append(py.Rect(start_pos, 0, rec_width, arr[i]*2))
-            recs[i].bottom = 700
+            rects.append(py.Rect(start_pos, 0, rect_width, arr[i]*2))
+            rects[i].bottom = 700
             py.draw.rect(screen, (0, 153, 76),
-                         recs[i])
-            start_pos += rec_width + border_width
+                         rects[i])
+            start_pos += rect_width + border_width
         arr_visualised = True
         start_pos = 50
     py.display.update()
