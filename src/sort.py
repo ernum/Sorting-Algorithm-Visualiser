@@ -1,6 +1,6 @@
 import pygame as py
 
-FPS = 60
+FPS = 30
 clock = py.time.Clock()
 
 
