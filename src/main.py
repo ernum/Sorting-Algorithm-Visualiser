@@ -32,11 +32,11 @@ def gen_arr_btn_action():
 
 def sort_arr_btn_action():
     global screen, rects, arr_size
-    sort.insertion(screen, rects)
+    sort.quicksort(screen, rects, 0, len(rects) - 1)
     sort_arr_btn.change_disabled_status()
     gen_arr_btn.change_disabled_status()
-    insertion_sort_btn.amount_clicked += 1
-    insertion_sort_btn.change_disabled_status()
+    quick_sort_btn.amount_clicked += 1
+    quick_sort_btn.change_disabled_status()
 
 
 def insertion_sort_btn_action():
@@ -45,7 +45,8 @@ def insertion_sort_btn_action():
 
 
 def quick_sort_btn_action():
-    pass
+    sort_arr_btn.change_disabled_status()
+    gen_arr_btn.change_disabled_status()
 
 
 arr, arr_visualised = randint(arr_range[0], arr_range[1], arr_size), False
