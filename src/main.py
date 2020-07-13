@@ -64,7 +64,7 @@ def evaluate_buttons(pos):
     global sort_boolean_val
 
     if 1 in sort_boolean_val:
-        sort_boolean_val = [0, 0]
+        sort_boolean_val = [0] * len(sort_buttons)
 
     sort_boolean_val[pos] = 1
     [sort.change_disabled_status()
@@ -81,7 +81,8 @@ insertion_sort_btn = Button(rect=(650, 10, 125, 25), click_action=insertion_sort
 quick_sort_btn = Button(rect=(650, 40, 125, 25), click_action=quick_sort_btn_action,
                         text='Quick Sort', font=py.font.Font(None, 16), clicked_border_colour=py.Color('yellow'), disabled=False)
 
-sort_buttons, sort_boolean_val = [insertion_sort_btn, quick_sort_btn], [0, 0]
+sort_buttons = [insertion_sort_btn, quick_sort_btn]
+sort_boolean_val = [0] * len(sort_buttons)
 
 while run:
 
