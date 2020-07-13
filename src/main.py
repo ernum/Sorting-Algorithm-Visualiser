@@ -1,8 +1,9 @@
 import pygame as py
+import sort
 from numpy.random import randint
 from os import environ
 from button import Button
-import sort
+from gc import collect
 
 environ['SDL_VIDEO_WINDOW_POS'] = "500,200"
 py.init()
@@ -26,27 +27,48 @@ def gen_arr_btn_action():
     global arr, arr_visualised
     arr_visualised = False
     arr = randint(arr_range[0], arr_range[1], arr_size)
-    if insertion_sort_btn.disabled:
-        insertion_sort_btn.change_disabled_status()
+    [sort.change_disabled_status() for sort in sort_buttons if sort.disabled]
+    collect()
 
 
 def sort_arr_btn_action():
-    global screen, rects, arr_size
-    sort.quicksort(screen, rects, 0, len(rects) - 1)
+    global sort_boolean_val
+    index = sort_boolean_val.index(1)
+
+    if index == 0:
+        sort.insertion(screen, rects)
+        insertion_sort_btn.amount_clicked += 1
+        insertion_sort_btn.change_disabled_status()
+    elif index == 1:
+        sort.quicksort(screen, rects, 0, len(rects) - 1)
+        quick_sort_btn.amount_clicked += 1
+        quick_sort_btn.change_disabled_status()
+
     sort_arr_btn.change_disabled_status()
     gen_arr_btn.change_disabled_status()
-    quick_sort_btn.amount_clicked += 1
-    quick_sort_btn.change_disabled_status()
 
 
 def insertion_sort_btn_action():
+    evaluate_buttons(0)
     sort_arr_btn.change_disabled_status()
     gen_arr_btn.change_disabled_status()
 
 
 def quick_sort_btn_action():
+    evaluate_buttons(1)
     sort_arr_btn.change_disabled_status()
     gen_arr_btn.change_disabled_status()
+
+
+def evaluate_buttons(pos):
+    global sort_boolean_val
+
+    if 1 in sort_boolean_val:
+        sort_boolean_val = [0, 0]
+
+    sort_boolean_val[pos] = 1
+    [sort.change_disabled_status()
+     for sort in sort_buttons if sort != sort_buttons[pos]]
 
 
 arr, arr_visualised = randint(arr_range[0], arr_range[1], arr_size), False
@@ -59,6 +81,8 @@ insertion_sort_btn = Button(rect=(650, 10, 125, 25), click_action=insertion_sort
 quick_sort_btn = Button(rect=(650, 40, 125, 25), click_action=quick_sort_btn_action,
                         text='Quick Sort', font=py.font.Font(None, 16), clicked_border_colour=py.Color('yellow'), disabled=False)
 
+sort_buttons, sort_boolean_val = [insertion_sort_btn, quick_sort_btn], [0, 0]
+
 while run:
 
     for event in py.event.get():
@@ -67,13 +91,11 @@ while run:
 
         gen_arr_btn.get_event(event)
         sort_arr_btn.get_event(event)
-        insertion_sort_btn.get_event(event)
-        quick_sort_btn.get_event(event)
+        [sort.get_event(event) for sort in sort_buttons]
 
     sort_arr_btn.draw(screen)
     gen_arr_btn.draw(screen)
-    insertion_sort_btn.draw(screen)
-    quick_sort_btn.draw(screen)
+    [sort.draw(screen) for sort in sort_buttons]
 
     if not arr_visualised:
         rects = []
