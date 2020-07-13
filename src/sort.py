@@ -11,11 +11,7 @@ def insertion(screen, rects):
         j = i
         while j > 0 and rects[j-1].height > rects[j].height:
             swap(screen, rects, j-1, j)
-            screen.fill((0, 0, 0))
-            draw_rects(rects, screen)
-            py.draw.rect(screen, (0, 255, 0), rects[i])
-            py.display.update()
-            clock.tick(FPS)
+            visualisation(screen, rects, i)
             j -= 1
         i += 1
         py.display.update()
@@ -31,7 +27,8 @@ def quicksort(screen, rects, lo, hi):
 
 
 def partition(screen, rects, lo, hi):
-    pivot = rects[floor((hi + lo) / 2)].height
+    pivot_pos = floor((hi + lo) / 2)
+    pivot = rects[pivot_pos].height
     i, j = lo - 1, hi + 1
 
     while True:
@@ -47,11 +44,7 @@ def partition(screen, rects, lo, hi):
             return j
 
         swap(screen, rects, i, j)
-        screen.fill((0, 0, 0))
-        draw_rects(rects, screen)
-        py.draw.rect(screen, (0, 255, 0), rects[i])
-        py.display.update()
-        clock.tick(FPS)
+        visualisation(screen, rects, pivot_pos)
 
 
 def swap(screen, rects, left, right):
@@ -60,6 +53,14 @@ def swap(screen, rects, left, right):
     rects[right].bottom = 700
     py.draw.rect(screen, (255, 0, 0), rects[left])
     py.draw.rect(screen, (255, 0, 0), rects[right])
+    py.display.update()
+    clock.tick(FPS)
+
+
+def visualisation(screen, rects, i):
+    screen.fill((0, 0, 0))
+    draw_rects(rects, screen)
+    py.draw.rect(screen, (0, 255, 0), rects[i])
     py.display.update()
     clock.tick(FPS)
 
