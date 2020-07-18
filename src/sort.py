@@ -1,7 +1,7 @@
 import pygame as py
 from math import floor
 
-FPS = 30
+FPS = 60
 clock = py.time.Clock()
 
 
@@ -14,7 +14,6 @@ def insertion(screen, rects):
             visualisation(screen, rects, i)
             j -= 1
         i += 1
-
     draw_rects(rects, screen)
 
 
