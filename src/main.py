@@ -38,11 +38,13 @@ def sort_arr_btn_action():
         insertion_sort_btn.amount_clicked += 1
         insertion_sort_btn.change_disabled_status()
     elif index == 1:
-        sort.quicksort(screen, rects, 0, len(rects) - 1)
+        sort.quickSort(screen, rects, 0, len(rects) - 1)
         quick_sort_btn.amount_clicked += 1
         quick_sort_btn.change_disabled_status()
     elif index == 2:
-        pass
+        sort.heapSort(screen, rects)
+        heap_sort_btn.amount_clicked += 1
+        heap_sort_btn.change_disabled_status()
     elif index == 3:
         pass
     elif index == 4:
@@ -63,12 +65,12 @@ def quick_sort_btn_action():
     change_sort_and_gen_status()
 
 
-def merge_sort_btn_action():
+def heap_sort_btn_action():
     evaluate_buttons(2)
     change_sort_and_gen_status()
 
 
-def heap_sort_btn_action():
+def merge_sort_btn_action():
     evaluate_buttons(3)
     change_sort_and_gen_status()
 
@@ -118,7 +120,7 @@ bubble_sort_btn = Button(rect=(390, 40, 125, 25), click_action=bubble_sort_btn_a
                          text='Bubble Sort', font=py.font.Font(None, 16), clicked_border_colour=py.Color('yellow'), disabled=False)
 
 sort_btns = [insertion_sort_btn,
-             quick_sort_btn, merge_sort_btn, heap_sort_btn, selection_sort_btn, bubble_sort_btn]
+             quick_sort_btn, heap_sort_btn, merge_sort_btn, selection_sort_btn, bubble_sort_btn]
 sort_boolean_val = [0] * len(sort_btns)
 
 while run:
