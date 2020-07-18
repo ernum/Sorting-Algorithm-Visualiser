@@ -1,6 +1,6 @@
 import pygame as py
 import sort
-from numpy.random import randint
+from random import randint
 from os import environ
 from button import Button
 from gc import collect
@@ -16,17 +16,15 @@ py.display.set_icon(py.image.load("images/icon.png"))
 
 # Values
 run = True
-arr_size = 60
-arr_range = [50, 300]
 rect_width = 10
-start_pos = 50
+start_pos, end_pos = 50, 770
 border_width = 2
 
 
 def gen_arr_btn_action():
-    global arr, arr_visualised
+    global arr_visualised, start_pos
     arr_visualised = False
-    arr = randint(arr_range[0], arr_range[1], arr_size)
+    start_pos = 50
     [sort.change_disabled_status() for sort in sort_btns if sort.disabled]
     collect()
 
@@ -43,6 +41,14 @@ def sort_arr_btn_action():
         sort.quicksort(screen, rects, 0, len(rects) - 1)
         quick_sort_btn.amount_clicked += 1
         quick_sort_btn.change_disabled_status()
+    elif index == 2:
+        pass
+    elif index == 3:
+        pass
+    elif index == 4:
+        pass
+    elif index == 5:
+        pass
 
     change_sort_and_gen_status()
 
@@ -93,7 +99,7 @@ def evaluate_buttons(pos):
      for sort in sort_btns if sort != sort_btns[pos]]
 
 
-arr, arr_visualised = randint(arr_range[0], arr_range[1], arr_size), False
+arr_visualised = False
 gen_arr_btn = Button(rect=(10, 10, 125, 25),
                      click_action=gen_arr_btn_action, text='Generate New Array', font=py.font.Font(None, 16), disabled=False)
 sort_arr_btn = Button(rect=(10, 40, 125, 25), click_action=sort_arr_btn_action,
@@ -132,14 +138,17 @@ while run:
     if not arr_visualised:
         rects = []
         screen.fill((0, 0, 0))
-        for i in range(arr_size):
-            rects.append(py.Rect(start_pos, 0, rect_width, arr[i]*2))
-            rects[i].bottom = 700
-            py.draw.rect(screen, (255, 255, 255),
-                         rects[i])
-            start_pos += rect_width + border_width
+        while start_pos <= end_pos:
+            if start_pos + rect_width + border_width > end_pos:
+                break
+            else:
+                rects.append(
+                    py.Rect(start_pos, 0, rect_width, randint(50, 300)*2))
+                rects[-1].bottom = 700
+                py.draw.rect(screen, (255, 255, 255),
+                             rects[-1])
+                start_pos += rect_width + border_width
         arr_visualised = True
-        start_pos = 50
     py.display.update()
 
 py.quit()
