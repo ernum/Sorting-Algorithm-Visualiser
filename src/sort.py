@@ -14,7 +14,7 @@ def insertion(screen, rects):
             visualisation(screen, rects, i)
             j -= 1
         i += 1
-        py.display.update()
+
     draw_rects(rects, screen)
 
 

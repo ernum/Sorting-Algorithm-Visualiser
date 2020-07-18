@@ -27,7 +27,7 @@ def gen_arr_btn_action():
     global arr, arr_visualised
     arr_visualised = False
     arr = randint(arr_range[0], arr_range[1], arr_size)
-    [sort.change_disabled_status() for sort in sort_buttons if sort.disabled]
+    [sort.change_disabled_status() for sort in sort_btns if sort.disabled]
     collect()
 
 
@@ -44,18 +44,30 @@ def sort_arr_btn_action():
         quick_sort_btn.amount_clicked += 1
         quick_sort_btn.change_disabled_status()
 
-    sort_arr_btn.change_disabled_status()
-    gen_arr_btn.change_disabled_status()
+    change_sort_and_gen_status()
 
 
 def insertion_sort_btn_action():
     evaluate_buttons(0)
-    sort_arr_btn.change_disabled_status()
-    gen_arr_btn.change_disabled_status()
+    change_sort_and_gen_status()
 
 
 def quick_sort_btn_action():
     evaluate_buttons(1)
+    change_sort_and_gen_status()
+
+
+def merge_sort_btn_action():
+    evaluate_buttons(2)
+    change_sort_and_gen_status()
+
+
+def heap_sort_btn_action():
+    evaluate_buttons(3)
+    change_sort_and_gen_status()
+
+
+def change_sort_and_gen_status():
     sort_arr_btn.change_disabled_status()
     gen_arr_btn.change_disabled_status()
 
@@ -64,11 +76,11 @@ def evaluate_buttons(pos):
     global sort_boolean_val
 
     if 1 in sort_boolean_val:
-        sort_boolean_val = [0] * len(sort_buttons)
+        sort_boolean_val = [0] * len(sort_btns)
 
     sort_boolean_val[pos] = 1
     [sort.change_disabled_status()
-     for sort in sort_buttons if sort != sort_buttons[pos]]
+     for sort in sort_btns if sort != sort_btns[pos]]
 
 
 arr, arr_visualised = randint(arr_range[0], arr_range[1], arr_size), False
@@ -80,9 +92,14 @@ insertion_sort_btn = Button(rect=(650, 10, 125, 25), click_action=insertion_sort
                             text='Insertion Sort', font=py.font.Font(None, 16), clicked_border_colour=py.Color('yellow'), disabled=False)
 quick_sort_btn = Button(rect=(650, 40, 125, 25), click_action=quick_sort_btn_action,
                         text='Quick Sort', font=py.font.Font(None, 16), clicked_border_colour=py.Color('yellow'), disabled=False)
+merge_sort_btn = Button(rect=(520, 10, 125, 25), click_action=merge_sort_btn_action,
+                        text='Merge Sort', font=py.font.Font(None, 16), clicked_border_colour=py.Color('yellow'), disabled=False)
+heap_sort_btn = Button(rect=(520, 40, 125, 25), click_action=heap_sort_btn_action,
+                       text='Heap Sort', font=py.font.Font(None, 16), clicked_border_colour=py.Color('yellow'), disabled=False)
 
-sort_buttons = [insertion_sort_btn, quick_sort_btn]
-sort_boolean_val = [0] * len(sort_buttons)
+sort_btns = [insertion_sort_btn,
+             quick_sort_btn, merge_sort_btn, heap_sort_btn]
+sort_boolean_val = [0] * len(sort_btns)
 
 while run:
 
@@ -92,11 +109,11 @@ while run:
 
         gen_arr_btn.get_event(event)
         sort_arr_btn.get_event(event)
-        [sort.get_event(event) for sort in sort_buttons]
+        [sort.get_event(event) for sort in sort_btns]
 
     sort_arr_btn.draw(screen)
     gen_arr_btn.draw(screen)
-    [sort.draw(screen) for sort in sort_buttons]
+    [sort.draw(screen) for sort in sort_btns]
 
     if not arr_visualised:
         rects = []
