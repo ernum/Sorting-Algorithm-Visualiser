@@ -46,6 +46,10 @@ def partition(screen, rects, lo, hi):
         visualisation(screen, rects, pivot_pos)
 
 
+def heapsort():
+    pass
+
+
 def swap(screen, rects, left, right):
     rects[left].height, rects[right].height = rects[right].height, rects[left].height
     rects[left].bottom = 700

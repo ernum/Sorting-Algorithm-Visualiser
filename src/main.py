@@ -139,7 +139,8 @@ while run:
         rects = []
         screen.fill((0, 0, 0))
         while start_pos <= end_pos:
-            if start_pos + rect_width + border_width > end_pos:
+            change_in_pos = rect_width + border_width
+            if start_pos + change_in_pos > end_pos:
                 break
             else:
                 rects.append(
@@ -147,7 +148,7 @@ while run:
                 rects[-1].bottom = 700
                 py.draw.rect(screen, (255, 255, 255),
                              rects[-1])
-                start_pos += rect_width + border_width
+                start_pos += change_in_pos
         arr_visualised = True
     py.display.update()
 
