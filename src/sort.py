@@ -1,7 +1,7 @@
 import pygame as py
 from math import floor
 
-FPS = 60
+FPS = 30
 clock = py.time.Clock()
 
 
@@ -72,7 +72,8 @@ def heapify(screen, rects, n, i):
         max = right
 
     if max != i:
-        swap(screen, rects, i, max, False)
+        swap(screen, rects, i, max, True)
+        draw_rects(rects, screen)
         heapify(screen, rects, n, max)
 
 
