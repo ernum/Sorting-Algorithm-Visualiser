@@ -50,7 +50,9 @@ def sort_arr_btn_action():
     elif index == 4:
         pass
     elif index == 5:
-        pass
+        sort.bubbleSort(screen, rects)
+        bubble_sort_btn.amount_clicked += 1
+        bubble_sort_btn.change_disabled_status()
 
     change_sort_and_gen_status()
 
