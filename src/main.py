@@ -67,6 +67,16 @@ def heap_sort_btn_action():
     change_sort_and_gen_status()
 
 
+def selection_sort_btn_action():
+    evaluate_buttons(4)
+    change_sort_and_gen_status()
+
+
+def bubble_sort_btn_action():
+    evaluate_buttons(5)
+    change_sort_and_gen_status()
+
+
 def change_sort_and_gen_status():
     sort_arr_btn.change_disabled_status()
     gen_arr_btn.change_disabled_status()
@@ -96,9 +106,13 @@ merge_sort_btn = Button(rect=(520, 10, 125, 25), click_action=merge_sort_btn_act
                         text='Merge Sort', font=py.font.Font(None, 16), clicked_border_colour=py.Color('yellow'), disabled=False)
 heap_sort_btn = Button(rect=(520, 40, 125, 25), click_action=heap_sort_btn_action,
                        text='Heap Sort', font=py.font.Font(None, 16), clicked_border_colour=py.Color('yellow'), disabled=False)
+selection_sort_btn = Button(rect=(390, 10, 125, 25), click_action=selection_sort_btn_action,
+                            text='Selection Sort', font=py.font.Font(None, 16), clicked_border_colour=py.Color('yellow'), disabled=False)
+bubble_sort_btn = Button(rect=(390, 40, 125, 25), click_action=bubble_sort_btn_action,
+                         text='Bubble Sort', font=py.font.Font(None, 16), clicked_border_colour=py.Color('yellow'), disabled=False)
 
 sort_btns = [insertion_sort_btn,
-             quick_sort_btn, merge_sort_btn, heap_sort_btn]
+             quick_sort_btn, merge_sort_btn, heap_sort_btn, selection_sort_btn, bubble_sort_btn]
 sort_boolean_val = [0] * len(sort_btns)
 
 while run:
