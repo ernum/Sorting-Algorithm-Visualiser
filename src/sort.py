@@ -77,6 +77,18 @@ def heapify(screen, rects, n, i):
         heapify(screen, rects, n, max)
 
 
+def bubbleSort(screen, rects):
+    n = len(rects)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if rects[j].height > rects[j+1].height:
+                swap(screen, rects, j, j+1, True)
+                screen.fill((0, 0, 0))
+                draw_rects(rects, screen)
+                clock.tick(FPS)
+    draw_rects(rects, screen)
+
+
 def swap(screen, rects, left, right, visualise):
     rects[left].height, rects[right].height = rects[right].height, rects[left].height
     rects[left].bottom = 700
