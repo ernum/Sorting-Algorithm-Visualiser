@@ -17,14 +17,15 @@ py.display.set_icon(py.image.load("images/icon.png"))
 # Values
 run = True
 rect_width = 10
-start_pos, end_pos = 50, 770
+start_pos = pos = 50
+end_pos = 770
 border_width = 2
 
 
 def gen_arr_btn_action():
-    global arr_visualised, start_pos
+    global arr_visualised, start_pos, pos
     arr_visualised = False
-    start_pos = 50
+    pos = start_pos
     [sort.change_disabled_status() for sort in sort_btns if sort.disabled]
     collect()
 
@@ -142,17 +143,17 @@ while run:
     if not arr_visualised:
         rects = []
         screen.fill((0, 0, 0))
-        while start_pos <= end_pos:
+        while pos <= end_pos:
             change_in_pos = rect_width + border_width
-            if start_pos + change_in_pos > end_pos:
+            if pos + change_in_pos > end_pos:
                 break
             else:
                 rects.append(
-                    py.Rect(start_pos, 0, rect_width, randint(50, 300)*2))
+                    py.Rect(pos, 0, rect_width, randint(50, 300)*2))
                 rects[-1].bottom = 700
                 py.draw.rect(screen, (255, 255, 255),
                              rects[-1])
-                start_pos += change_in_pos
+                pos += change_in_pos
         arr_visualised = True
     py.display.update()
 
