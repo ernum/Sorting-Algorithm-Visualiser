@@ -103,6 +103,39 @@ def selectionSort(screen, rects):
     sort_completion_visualisation(rects, screen)
 
 
+def mergeSort(screen, rects):
+    n = len(rects)
+    if n > 1:
+        mid = floor(n/2)
+        L = rects[:mid]
+        R = rects[mid:]
+
+        mergeSort(screen, L)
+        mergeSort(screen, R)
+
+        i = j = k = 0
+
+        while i < len(L) and j < len(R):
+            if L[i].height < R[j].height:
+                rects[k].height = L[i].height
+                i += 1
+            else:
+                rects[k].height = R[j].height
+                j += 1
+            k += 1
+            visualisation(screen, rects, i)
+
+        while i < len(L):
+            rects[k].height = L[i].height
+            i += 1
+            k += 1
+
+        while j < len(R):
+            rects[k].height = R[j].height
+            j += 1
+            k += 1
+
+
 def swap(screen, rects, left, right, visualise):
     rects[left].height, rects[right].height = rects[right].height, rects[left].height
     rects[left].bottom = 700
@@ -127,6 +160,7 @@ def visualisation(screen, rects, i):
 def draw_rects(rects, screen):
     for rect in rects:
         py.draw.rect(screen, (255, 255, 255), rect)
+        rect.bottom = 700
 
 
 def sort_completion_visualisation(rects, screen):
