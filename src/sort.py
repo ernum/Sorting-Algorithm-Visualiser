@@ -14,15 +14,17 @@ def insertion(screen, rects):
             visualisation(screen, rects, i)
             j -= 1
         i += 1
-    draw_rects(rects, screen)
+    sort_completion_visualisation(rects, screen)
 
 
 def quickSort(screen, rects, lo, hi):
+    n = len(rects)
     if lo < hi:
         p = partition(screen, rects, lo, hi)
         quickSort(screen, rects, lo, p)
         quickSort(screen, rects, p + 1, hi)
-    draw_rects(rects, screen)
+    if lo == 0 and hi == n-1:
+        sort_completion_visualisation(rects, screen)
 
 
 def partition(screen, rects, lo, hi):
@@ -53,7 +55,7 @@ def heapSort(screen, rects):
         swap(screen, rects, 0, i, True)
         heapify(screen, rects, i, 0)
         visualisation(screen, rects, i)
-    draw_rects(rects, screen)
+    sort_completion_visualisation(rects, screen)
 
 
 def buildMaxHeap(screen, rects, n):
@@ -86,7 +88,19 @@ def bubbleSort(screen, rects):
                 screen.fill((0, 0, 0))
                 draw_rects(rects, screen)
                 clock.tick(FPS)
-    draw_rects(rects, screen)
+    sort_completion_visualisation(rects, screen)
+
+
+def selectionSort(screen, rects):
+    n = len(rects)
+    for i in range(n):
+        min = i
+        for j in range(i+1, n):
+            if rects[min].height > rects[j].height:
+                min = j
+        swap(screen, rects, i, min, True)
+        visualisation(screen, rects, i)
+    sort_completion_visualisation(rects, screen)
 
 
 def swap(screen, rects, left, right, visualise):
@@ -113,3 +127,12 @@ def visualisation(screen, rects, i):
 def draw_rects(rects, screen):
     for rect in rects:
         py.draw.rect(screen, (255, 255, 255), rect)
+
+
+def sort_completion_visualisation(rects, screen):
+    draw_rects(rects, screen)
+    for rect in rects:
+        py.draw.rect(screen, (0, 255, 0), rect)
+        py.display.update()
+        clock.tick(60)
+    draw_rects(rects, screen)
