@@ -89,6 +89,18 @@ def bubbleSort(screen, rects):
     draw_rects(rects, screen)
 
 
+def selectionSort(screen, rects):
+    n = len(rects)
+    for i in range(n):
+        min = i
+        for j in range(i+1, n):
+            if rects[min].height > rects[j].height:
+                min = j
+        swap(screen, rects, i, min, True)
+        visualisation(screen, rects, i)
+    draw_rects(rects, screen)
+
+
 def swap(screen, rects, left, right, visualise):
     rects[left].height, rects[right].height = rects[right].height, rects[left].height
     rects[left].bottom = 700
