@@ -1,7 +1,8 @@
 import pygame as py
 from math import floor
+from time import sleep
 
-FPS = 30
+FPS = 45
 clock = py.time.Clock()
 
 
@@ -103,37 +104,48 @@ def selectionSort(screen, rects):
     sort_completion_visualisation(rects, screen)
 
 
-def mergeSort(screen, rects):
-    n = len(rects)
-    if n > 1:
-        mid = floor(n/2)
-        L = rects[:mid]
-        R = rects[mid:]
+def merge(screen, rects, start, mid, end):
+    second_start = mid + 1
 
-        mergeSort(screen, L)
-        mergeSort(screen, R)
+    draw_rects(rects, screen)
+    py.draw.rect(screen, (255, 0, 0), rects[start])
+    py.draw.rect(screen, (255, 0, 0), rects[end])
+    py.display.update()
+    if rects[mid].height <= rects[second_start].height:
+        return
 
-        i = j = k = 0
+    while start <= mid and second_start <= end:
+        if rects[start].height <= rects[second_start].height:
+            start += 1
+        else:
+            value = rects[second_start].height
+            index = second_start
 
-        while i < len(L) and j < len(R):
-            if L[i].height < R[j].height:
-                rects[k].height = L[i].height
-                i += 1
-            else:
-                rects[k].height = R[j].height
-                j += 1
-            k += 1
-            visualisation(screen, rects, i)
+            while index != start:
+                rects[index].height = rects[index - 1].height
+                index -= 1
 
-        while i < len(L):
-            rects[k].height = L[i].height
-            i += 1
-            k += 1
+            rects[start].height = value
 
-        while j < len(R):
-            rects[k].height = R[j].height
-            j += 1
-            k += 1
+            start += 1
+            mid += 1
+            second_start += 1
+
+
+def mergeSort(screen, rects, left, right):
+    global FPS
+
+    FPS = 30
+
+    if left < right:
+        mid = left + (right - left) // 2
+        mergeSort(screen, rects, left, mid)
+        mergeSort(screen, rects, mid + 1, right)
+        merge(screen, rects, left, mid, right)
+        visualisation(screen, rects, mid)
+
+    if left == 0 and right == len(rects) - 1:
+        sort_completion_visualisation(rects, screen)
 
 
 def swap(screen, rects, left, right, visualise):
@@ -159,8 +171,8 @@ def visualisation(screen, rects, i):
 
 def draw_rects(rects, screen):
     for rect in rects:
-        py.draw.rect(screen, (255, 255, 255), rect)
         rect.bottom = 700
+        py.draw.rect(screen, (255, 255, 255), rect)
 
 
 def sort_completion_visualisation(rects, screen):
