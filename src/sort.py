@@ -1,7 +1,8 @@
 import pygame as py
 from math import floor
+from time import sleep
 
-FPS = 30
+FPS = 45
 clock = py.time.Clock()
 
 
@@ -103,6 +104,47 @@ def selectionSort(screen, rects):
     sort_completion_visualisation(rects, screen)
 
 
+def merge(screen, rects, start, mid, end):
+    second_start = mid + 1
+    original_start = start
+    original_end = end
+
+    if rects[mid].height <= rects[second_start].height:
+        return
+
+    while start <= mid and second_start <= end:
+        if rects[start].height <= rects[second_start].height:
+            start += 1
+            merge_sort_visualisation(
+                screen, rects, start, second_start, (255, 0, 0), original_start, original_end)
+        else:
+            merge_sort_visualisation(
+                screen, rects, start, second_start, (255, 0, 0), original_start, original_end)
+            value = rects[second_start].height
+            index = second_start
+
+            while index != start:
+                rects[index].height = rects[index - 1].height
+                index -= 1
+
+            rects[start].height = value
+
+            start += 1
+            mid += 1
+            second_start += 1
+
+
+def mergeSort(screen, rects, left, right):
+    if left < right:
+        mid = left + (right - left) // 2
+        mergeSort(screen, rects, left, mid)
+        mergeSort(screen, rects, mid + 1, right)
+        merge(screen, rects, left, mid, right)
+
+    if left == 0 and right == len(rects) - 1:
+        sort_completion_visualisation(rects, screen)
+
+
 def swap(screen, rects, left, right, visualise):
     rects[left].height, rects[right].height = rects[right].height, rects[left].height
     rects[left].bottom = 700
@@ -116,6 +158,15 @@ def swap(screen, rects, left, right, visualise):
     clock.tick(FPS)
 
 
+def merge_sort_visualisation(screen, rects, start, second_start, colour, left, right):
+    screen.fill((0, 0, 0))
+    draw_rects(rects, screen, left, right)
+    py.draw.rect(screen, colour, rects[start])
+    py.draw.rect(screen, colour, rects[second_start])
+    py.display.update()
+    clock.tick(FPS)
+
+
 def visualisation(screen, rects, i):
     screen.fill((0, 0, 0))
     draw_rects(rects, screen)
@@ -124,12 +175,22 @@ def visualisation(screen, rects, i):
     clock.tick(FPS)
 
 
-def draw_rects(rects, screen):
+def draw_rects(rects, screen, *exclude):
+    excluded_rects = []
+    if exclude:
+        for val in exclude:
+            excluded_rects.append(rects[val])
+
     for rect in rects:
-        py.draw.rect(screen, (255, 255, 255), rect)
+        rect.bottom = 700
+        if rect not in excluded_rects:
+            py.draw.rect(screen, (255, 255, 255), rect)
+        else:
+            py.draw.rect(screen, (0, 255, 0), rect)
 
 
 def sort_completion_visualisation(rects, screen):
+    screen.fill((0, 0, 0))
     draw_rects(rects, screen)
     for rect in rects:
         py.draw.rect(screen, (0, 255, 0), rect)

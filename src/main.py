@@ -47,7 +47,9 @@ def sort_arr_btn_action():
         heap_sort_btn.amount_clicked += 1
         heap_sort_btn.change_disabled_status()
     elif index == 3:
-        pass
+        sort.mergeSort(screen, rects, 0, len(rects) - 1)
+        merge_sort_btn.amount_clicked += 1
+        merge_sort_btn.change_disabled_status()
     elif index == 4:
         sort.selectionSort(screen, rects)
         selection_sort_btn.amount_clicked += 1
