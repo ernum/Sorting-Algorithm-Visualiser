@@ -135,10 +135,6 @@ def merge(screen, rects, start, mid, end):
 
 
 def mergeSort(screen, rects, left, right):
-    global FPS
-
-    FPS = 20
-
     if left < right:
         mid = left + (right - left) // 2
         mergeSort(screen, rects, left, mid)
@@ -194,6 +190,7 @@ def draw_rects(rects, screen, *exclude):
 
 
 def sort_completion_visualisation(rects, screen):
+    screen.fill((0, 0, 0))
     draw_rects(rects, screen)
     for rect in rects:
         py.draw.rect(screen, (0, 255, 0), rect)
