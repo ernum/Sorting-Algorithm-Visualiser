@@ -4,6 +4,7 @@ from random import randint
 from os import environ
 from button import Button
 from gc import collect
+from slider import Slider
 
 environ['SDL_VIDEO_WINDOW_POS'] = "500,200"
 py.init()
@@ -14,7 +15,13 @@ py.display.set_caption("Visualising Sorting Algorithms")
 py.display.set_icon(py.image.load("images/icon.png"))
 
 
+# Sliders
+arr_size = Slider(screen, "Rects", 10, 50, 1, 160, 12)
+speed = Slider(screen, "Speed", 60, 120, 10, 275, 12)
+slides = [arr_size, speed]
+
 # Values
+
 run = True
 rect_width = 10
 start_pos = pos = 50
@@ -108,6 +115,14 @@ def evaluate_buttons(pos):
      for sort in sort_btns if sort != sort_btns[pos]]
 
 
+def check_sort_btns_disable_status(sort_btns):
+    """Returns false if any sort button is disabled"""
+    for sort in sort_btns:
+        if sort.disabled:
+            return False
+    return True
+
+
 arr_visualised = False
 gen_arr_btn = Button(rect=(10, 10, 125, 25),
                      click_action=gen_arr_btn_action, text='Generate New Array', font=py.font.Font(None, 16), disabled=False)
@@ -135,14 +150,37 @@ while run:
     for event in py.event.get():
         if event.type == py.QUIT:
             run = False
+        elif event.type == py.MOUSEBUTTONDOWN:
+            m_pos = py.mouse.get_pos()
+            if check_sort_btns_disable_status(sort_btns):
+                for s in slides:
+                    if s.button_rect.collidepoint(m_pos):
+                        s.hit = True
+        elif event.type == py.MOUSEBUTTONUP:
+            if check_sort_btns_disable_status(sort_btns):
+                for s in slides:
+                    if s is arr_size and arr_size.hit:
+                        pos = 50
+                        arr_visualised = False
+                    s.hit = False
 
         gen_arr_btn.get_event(event)
         sort_arr_btn.get_event(event)
         [sort.get_event(event) for sort in sort_btns]
 
+    for s in slides:
+        if s.hit:
+            s.move()
+
+    for s in slides:
+        s.draw()
+
     sort_arr_btn.draw(screen)
     gen_arr_btn.draw(screen)
     [sort.draw(screen) for sort in sort_btns]
+
+    rect_width = int(arr_size.val)
+    sort.FPS = int(s.val)
 
     if not arr_visualised:
         rects = []
