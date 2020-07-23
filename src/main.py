@@ -21,7 +21,6 @@ speed = Slider(screen, "Speed", 60, 120, 10, 275, 12)
 slides = [arr_size, speed]
 
 # Values
-
 run = True
 rect_width = 10
 start_pos = pos = 50
@@ -116,7 +115,7 @@ def evaluate_buttons(pos):
 
 
 def check_sort_btns_disable_status(sort_btns):
-    """Returns false if any sort button is disabled"""
+    """ Returns false if any sort button is disabled. """
     for sort in sort_btns:
         if sort.disabled:
             return False
