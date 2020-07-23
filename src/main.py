@@ -115,6 +115,14 @@ def evaluate_buttons(pos):
      for sort in sort_btns if sort != sort_btns[pos]]
 
 
+def check_sort_btns_disable_status(sort_btns):
+    """Returns false if any sort button is disabled"""
+    for sort in sort_btns:
+        if sort.disabled:
+            return False
+    return True
+
+
 arr_visualised = False
 gen_arr_btn = Button(rect=(10, 10, 125, 25),
                      click_action=gen_arr_btn_action, text='Generate New Array', font=py.font.Font(None, 16), disabled=False)
@@ -144,15 +152,17 @@ while run:
             run = False
         elif event.type == py.MOUSEBUTTONDOWN:
             m_pos = py.mouse.get_pos()
-            for s in slides:
-                if s.button_rect.collidepoint(m_pos):
-                    s.hit = True
-                    if s is arr_size:
+            if check_sort_btns_disable_status(sort_btns):
+                for s in slides:
+                    if s.button_rect.collidepoint(m_pos):
+                        s.hit = True
+        elif event.type == py.MOUSEBUTTONUP:
+            if check_sort_btns_disable_status(sort_btns):
+                for s in slides:
+                    if s is arr_size and arr_size.hit:
                         pos = 50
                         arr_visualised = False
-        elif event.type == py.MOUSEBUTTONUP:
-            for s in slides:
-                s.hit = False
+                    s.hit = False
 
         gen_arr_btn.get_event(event)
         sort_arr_btn.get_event(event)
@@ -168,7 +178,9 @@ while run:
     sort_arr_btn.draw(screen)
     gen_arr_btn.draw(screen)
     [sort.draw(screen) for sort in sort_btns]
+
     rect_width = arr_size.val
+    sort.FPS = s.val
 
     if not arr_visualised:
         rects = []
