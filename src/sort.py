@@ -1,9 +1,9 @@
-import pygame as py
+import pygame as pg
 from math import floor
 from time import sleep
 
 FPS = 45
-clock = py.time.Clock()
+clock = pg.time.Clock()
 
 
 def insertion(screen, rects):
@@ -151,9 +151,9 @@ def swap(screen, rects, left, right, visualise):
     rects[right].bottom = 700
 
     if visualise:
-        py.draw.rect(screen, (255, 0, 0), rects[left])
-        py.draw.rect(screen, (255, 0, 0), rects[right])
-        py.display.update()
+        pg.draw.rect(screen, (255, 0, 0), rects[left])
+        pg.draw.rect(screen, (255, 0, 0), rects[right])
+        pg.display.update()
 
     clock.tick(FPS)
 
@@ -161,17 +161,17 @@ def swap(screen, rects, left, right, visualise):
 def merge_sort_visualisation(screen, rects, start, second_start, colour, left, right):
     screen.fill((0, 0, 0))
     draw_rects(rects, screen, left, right)
-    py.draw.rect(screen, colour, rects[start])
-    py.draw.rect(screen, colour, rects[second_start])
-    py.display.update()
+    pg.draw.rect(screen, colour, rects[start])
+    pg.draw.rect(screen, colour, rects[second_start])
+    pg.display.update()
     clock.tick(FPS)
 
 
 def visualisation(screen, rects, i):
     screen.fill((0, 0, 0))
     draw_rects(rects, screen)
-    py.draw.rect(screen, (0, 255, 0), rects[i])
-    py.display.update()
+    pg.draw.rect(screen, (0, 255, 0), rects[i])
+    pg.display.update()
     clock.tick(FPS)
 
 
@@ -184,16 +184,16 @@ def draw_rects(rects, screen, *exclude):
     for rect in rects:
         rect.bottom = 700
         if rect not in excluded_rects:
-            py.draw.rect(screen, (255, 255, 255), rect)
+            pg.draw.rect(screen, (255, 255, 255), rect)
         else:
-            py.draw.rect(screen, (0, 255, 0), rect)
+            pg.draw.rect(screen, (0, 255, 0), rect)
 
 
 def sort_completion_visualisation(rects, screen):
     screen.fill((0, 0, 0))
     draw_rects(rects, screen)
     for rect in rects:
-        py.draw.rect(screen, (0, 255, 0), rect)
-        py.display.update()
+        pg.draw.rect(screen, (0, 255, 0), rect)
+        pg.display.update()
         clock.tick(60)
     draw_rects(rects, screen)

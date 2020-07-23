@@ -1,9 +1,9 @@
-import pygame as py
+import pygame as pg
 
 
 class Button():
     def __init__(self, rect, click_action, **kwargs):
-        self.rect = py.Rect(rect)
+        self.rect = pg.Rect(rect)
         self.click_action = click_action
         self.clicked = False
         self.hovered = False
@@ -14,19 +14,19 @@ class Button():
 
     def process_kwargs(self, kwargs):
         settings = {
-            "colour": py.Color('red'),
+            "colour": pg.Color('red'),
             "text": None,
-            "font": py.font.SysFont('Arial', 16),
-            "font_colour": py.Color("white"),
+            "font": pg.font.SysFont('Arial', 16),
+            "font_colour": pg.Color("white"),
             "call_on_release": True,
             "clicked_colour": None,
             "clicked_font_colour": None,
-            "border_colour": py.Color('black'),
-            "border_hover_colour": py.Color('yellow'),
+            "border_colour": pg.Color('black'),
+            "border_hover_colour": pg.Color('yellow'),
             "radius": 3,
             "disabled": True,
-            "disabled_colour": py.Color('grey'),
-            "disabled_border_colour": py.Color('white'),
+            "disabled_colour": pg.Color('grey'),
+            "disabled_border_colour": pg.Color('white'),
             "clicked_border_colour": None
         }
 
@@ -44,9 +44,9 @@ class Button():
 
     def get_event(self, event):
         if not self.disabled:
-            if event.type == py.MOUSEBUTTONDOWN and event.button == 1:
+            if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
                 self.on_click(event)
-            elif event.type == py.MOUSEBUTTONUP and event.button == 1:
+            elif event.type == pg.MOUSEBUTTONUP and event.button == 1:
                 self.on_release(event)
 
     def on_click(self, event):
@@ -63,7 +63,7 @@ class Button():
         self.clicked = False
 
     def check_hover(self):
-        if self.rect.collidepoint(py.mouse.get_pos()):
+        if self.rect.collidepoint(pg.mouse.get_pos()):
             if not self.hovered:
                 self.hovered = True
             return True
@@ -74,15 +74,15 @@ class Button():
     def _render_region(self, image, rect, colour, rad):
         corners = rect.inflate(-2*rad, -2*rad)
         for attribute in ("topleft", "topright", "bottomleft", "bottomright"):
-            py.draw.circle(image, colour, getattr(corners, attribute), rad)
+            pg.draw.circle(image, colour, getattr(corners, attribute), rad)
         image.fill(colour, rect.inflate(-2*rad, 0))
         image.fill(colour, rect.inflate(0, -2*rad))
 
     def round_rect(self, screen, rect, colour, rad=20, border=0, inside=(0, 0, 0, 0)):
-        rect = py.Rect(rect)
+        rect = pg.Rect(rect)
         zeroed_rect = rect.copy()
         zeroed_rect.topleft = 0, 0
-        image = py.Surface(rect.size).convert_alpha()
+        image = pg.Surface(rect.size).convert_alpha()
         image.fill((0, 0, 0, 0))
         self._render_region(image, zeroed_rect, colour, rad)
         if border:

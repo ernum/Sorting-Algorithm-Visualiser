@@ -1,4 +1,4 @@
-import pygame as py
+import pygame as pg
 import sort
 from random import randint
 from os import environ
@@ -7,12 +7,12 @@ from gc import collect
 from slider import Slider
 
 environ['SDL_VIDEO_WINDOW_POS'] = "500,200"
-py.init()
+pg.init()
 
-screen = py.display.set_mode((800, 700))
+screen = pg.display.set_mode((800, 700))
 
-py.display.set_caption("Visualising Sorting Algorithms")
-py.display.set_icon(py.image.load("images/icon.png"))
+pg.display.set_caption("Visualising Sorting Algorithms")
+pg.display.set_icon(pg.image.load("images/icon.png"))
 
 
 # Sliders
@@ -125,21 +125,21 @@ def check_sort_btns_disable_status(sort_btns):
 
 arr_visualised = False
 gen_arr_btn = Button(rect=(10, 10, 125, 25),
-                     click_action=gen_arr_btn_action, text='Generate New Array', font=py.font.Font(None, 16), disabled=False)
+                     click_action=gen_arr_btn_action, text='Generate New Array', font=pg.font.Font(None, 16), disabled=False)
 sort_arr_btn = Button(rect=(10, 40, 125, 25), click_action=sort_arr_btn_action,
-                      text='Sort Array', font=py.font.Font(None, 16), disabled=True)
+                      text='Sort Array', font=pg.font.Font(None, 16), disabled=True)
 insertion_sort_btn = Button(rect=(650, 10, 125, 25), click_action=insertion_sort_btn_action,
-                            text='Insertion Sort', font=py.font.Font(None, 16), clicked_border_colour=py.Color('yellow'), disabled=False)
+                            text='Insertion Sort', font=pg.font.Font(None, 16), clicked_border_colour=pg.Color('yellow'), disabled=False)
 quick_sort_btn = Button(rect=(650, 40, 125, 25), click_action=quick_sort_btn_action,
-                        text='Quick Sort', font=py.font.Font(None, 16), clicked_border_colour=py.Color('yellow'), disabled=False)
+                        text='Quick Sort', font=pg.font.Font(None, 16), clicked_border_colour=pg.Color('yellow'), disabled=False)
 merge_sort_btn = Button(rect=(520, 10, 125, 25), click_action=merge_sort_btn_action,
-                        text='Merge Sort', font=py.font.Font(None, 16), clicked_border_colour=py.Color('yellow'), disabled=False)
+                        text='Merge Sort', font=pg.font.Font(None, 16), clicked_border_colour=pg.Color('yellow'), disabled=False)
 heap_sort_btn = Button(rect=(520, 40, 125, 25), click_action=heap_sort_btn_action,
-                       text='Heap Sort', font=py.font.Font(None, 16), clicked_border_colour=py.Color('yellow'), disabled=False)
+                       text='Heap Sort', font=pg.font.Font(None, 16), clicked_border_colour=pg.Color('yellow'), disabled=False)
 selection_sort_btn = Button(rect=(390, 10, 125, 25), click_action=selection_sort_btn_action,
-                            text='Selection Sort', font=py.font.Font(None, 16), clicked_border_colour=py.Color('yellow'), disabled=False)
+                            text='Selection Sort', font=pg.font.Font(None, 16), clicked_border_colour=pg.Color('yellow'), disabled=False)
 bubble_sort_btn = Button(rect=(390, 40, 125, 25), click_action=bubble_sort_btn_action,
-                         text='Bubble Sort', font=py.font.Font(None, 16), clicked_border_colour=py.Color('yellow'), disabled=False)
+                         text='Bubble Sort', font=pg.font.Font(None, 16), clicked_border_colour=pg.Color('yellow'), disabled=False)
 
 sort_btns = [insertion_sort_btn,
              quick_sort_btn, heap_sort_btn, merge_sort_btn, selection_sort_btn, bubble_sort_btn]
@@ -147,16 +147,16 @@ sort_boolean_val = [0] * len(sort_btns)
 
 while run:
 
-    for event in py.event.get():
-        if event.type == py.QUIT:
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
             run = False
-        elif event.type == py.MOUSEBUTTONDOWN:
-            m_pos = py.mouse.get_pos()
+        elif event.type == pg.MOUSEBUTTONDOWN:
+            m_pos = pg.mouse.get_pos()
             if check_sort_btns_disable_status(sort_btns):
                 for s in slides:
                     if s.button_rect.collidepoint(m_pos):
                         s.hit = True
-        elif event.type == py.MOUSEBUTTONUP:
+        elif event.type == pg.MOUSEBUTTONUP:
             if check_sort_btns_disable_status(sort_btns):
                 for s in slides:
                     if s is arr_size and arr_size.hit:
@@ -191,12 +191,12 @@ while run:
                 break
             else:
                 rects.append(
-                    py.Rect(pos, 0, rect_width, randint(50, 300)*2))
+                    pg.Rect(pos, 0, rect_width, randint(50, 300)*2))
                 rects[-1].bottom = 700
-                py.draw.rect(screen, (255, 255, 255),
+                pg.draw.rect(screen, (255, 255, 255),
                              rects[-1])
                 pos += change_in_pos
         arr_visualised = True
-    py.display.update()
+    pg.display.update()
 
-py.quit()
+pg.quit()
