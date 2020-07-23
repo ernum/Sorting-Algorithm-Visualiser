@@ -1,23 +1,25 @@
 import pygame as pg
-import sort
 from random import randint
+from pathlib import Path
+from . import sort
+from .button import Button
+from .slider import Slider
 from os import environ
-from button import Button
 from gc import collect
-from slider import Slider
 
 environ['SDL_VIDEO_WINDOW_POS'] = "500,200"
 pg.init()
 
 screen = pg.display.set_mode((800, 700))
+ICON_IMAGE = Path(__file__).absolute().parents[0] / "images" / "icon.png"
 
 pg.display.set_caption("Visualising Sorting Algorithms")
-pg.display.set_icon(pg.image.load("images/icon.png"))
+pg.display.set_icon(pg.image.load(str(ICON_IMAGE)))
 
 
 # Sliders
 arr_size = Slider(screen, "Rects", 10, 50, 1, 160, 12)
-speed = Slider(screen, "Speed", 60, 120, 10, 275, 12)
+speed = Slider(screen, "Speed", 45, 120, 10, 275, 12)
 slides = [arr_size, speed]
 
 # Values
