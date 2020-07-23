@@ -7,6 +7,7 @@ clock = pg.time.Clock()
 
 
 def insertion(screen, rects):
+    """ Implementation of the insertion sort algorithm. """
     i = 1
     while i < len(rects):
         j = i
@@ -19,6 +20,7 @@ def insertion(screen, rects):
 
 
 def quickSort(screen, rects, lo, hi):
+    """ Implementation of the quicksort algorithm. """
     n = len(rects)
     if lo < hi:
         p = partition(screen, rects, lo, hi)
@@ -29,6 +31,7 @@ def quickSort(screen, rects, lo, hi):
 
 
 def partition(screen, rects, lo, hi):
+    """ Implementation of the Hoare partition algorithm. """
     pivot_pos = floor((hi + lo) / 2)
     pivot = rects[pivot_pos].height
     i, j = lo - 1, hi + 1
@@ -50,6 +53,7 @@ def partition(screen, rects, lo, hi):
 
 
 def heapSort(screen, rects):
+    """ Implementation of the heapsort algorithm. """
     n = len(rects)
     buildMaxHeap(screen, rects, n)
     for i in range(n-1, 0, -1):
@@ -81,6 +85,7 @@ def heapify(screen, rects, n, i):
 
 
 def bubbleSort(screen, rects):
+    """ Implementation of the bubblesort algorithm. """
     n = len(rects)
     for i in range(n):
         for j in range(0, n-i-1):
@@ -93,6 +98,7 @@ def bubbleSort(screen, rects):
 
 
 def selectionSort(screen, rects):
+    """ Implementation of the selectionsort algorithm. """
     n = len(rects)
     for i in range(n):
         min = i
@@ -102,6 +108,19 @@ def selectionSort(screen, rects):
         swap(screen, rects, i, min, True)
         visualisation(screen, rects, i)
     sort_completion_visualisation(rects, screen)
+
+
+def mergeSort(screen, rects, left, right):
+    """ Implementation of the mergesort algorithm. 
+    Due to the visualisation method, mergesort has been implemented in-place."""
+    if left < right:
+        mid = left + (right - left) // 2
+        mergeSort(screen, rects, left, mid)
+        mergeSort(screen, rects, mid + 1, right)
+        merge(screen, rects, left, mid, right)
+
+    if left == 0 and right == len(rects) - 1:
+        sort_completion_visualisation(rects, screen)
 
 
 def merge(screen, rects, start, mid, end):
@@ -134,18 +153,9 @@ def merge(screen, rects, start, mid, end):
             second_start += 1
 
 
-def mergeSort(screen, rects, left, right):
-    if left < right:
-        mid = left + (right - left) // 2
-        mergeSort(screen, rects, left, mid)
-        mergeSort(screen, rects, mid + 1, right)
-        merge(screen, rects, left, mid, right)
-
-    if left == 0 and right == len(rects) - 1:
-        sort_completion_visualisation(rects, screen)
-
-
 def swap(screen, rects, left, right, visualise):
+    """ The swapping function. 
+    Swaps are shown as red-highlighted columns if visualise is True. """
     rects[left].height, rects[right].height = rects[right].height, rects[left].height
     rects[left].bottom = 700
     rects[right].bottom = 700
@@ -159,6 +169,7 @@ def swap(screen, rects, left, right, visualise):
 
 
 def merge_sort_visualisation(screen, rects, start, second_start, colour, left, right):
+    """ This function is used to visualise merge sort. """
     screen.fill((0, 0, 0))
     draw_rects(rects, screen, left, right)
     pg.draw.rect(screen, colour, rects[start])
@@ -183,13 +194,14 @@ def draw_rects(rects, screen, *exclude):
 
     for rect in rects:
         rect.bottom = 700
-        if rect not in excluded_rects:
+        if rect not in excluded_rects:  # Excluded rectangles are green.
             pg.draw.rect(screen, (255, 255, 255), rect)
         else:
             pg.draw.rect(screen, (0, 255, 0), rect)
 
 
 def sort_completion_visualisation(rects, screen):
+    """ This function is used to visualise the completion of a sort. """
     screen.fill((0, 0, 0))
     draw_rects(rects, screen)
     for rect in rects:
