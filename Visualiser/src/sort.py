@@ -80,6 +80,7 @@ def heapify(screen, rects, n, i):
 
     if max != i:
         swap(screen, rects, i, max, True)
+        screen.fill((0, 0, 0))
         draw_rects(rects, screen)
         heapify(screen, rects, n, max)
 
@@ -156,14 +157,14 @@ def merge(screen, rects, start, mid, end):
 def swap(screen, rects, left, right, visualise):
     """ The swapping function. 
     Swaps are shown as red-highlighted columns if visualise is True. """
-    rects[left].height, rects[right].height = rects[right].height, rects[left].height
-    rects[left].bottom = 700
-    rects[right].bottom = 700
-
     if visualise:
         pg.draw.rect(screen, (255, 0, 0), rects[left])
         pg.draw.rect(screen, (255, 0, 0), rects[right])
         pg.display.update()
+
+    rects[left].height, rects[right].height = rects[right].height, rects[left].height
+    rects[left].bottom = 700
+    rects[right].bottom = 700
 
     clock.tick(FPS)
 
