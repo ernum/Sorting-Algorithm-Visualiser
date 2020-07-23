@@ -17,7 +17,7 @@ pg.display.set_icon(pg.image.load("images/icon.png"))
 
 # Sliders
 arr_size = Slider(screen, "Rects", 10, 50, 1, 160, 12)
-speed = Slider(screen, "Speed", 60, 120, 10, 275, 12)
+speed = Slider(screen, "Speed", 45, 120, 10, 275, 12)
 slides = [arr_size, speed]
 
 # Values
