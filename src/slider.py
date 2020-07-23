@@ -2,6 +2,8 @@ import pygame as pg
 
 pg.init()
 
+# Colours
+
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 YELLOW = (255, 255, 0)
@@ -43,9 +45,8 @@ class Slider():
         pg.draw.circle(self.button_surf, ORANGE, (10, 10), 4, 0)
 
     def draw(self):
-        """ Combination of static and dynamic graphics in a copy of
-    the basic slide surface
-    """
+        """ Combination of static and dynamic graphics in
+        a copy of the basic slide surface. """
         # static
         surf = self.surf.copy()
 
@@ -60,11 +61,9 @@ class Slider():
         self.screen.blit(surf, (self.xpos, self.ypos))
 
     def move(self):
-        """
-    The dynamic part; reacts to movement of the slider button.
-    """
+        """ The dynamic part; reacts to movement of the slider button. """
         self.val = (pg.mouse.get_pos()[
-                    0] - self.xpos - 10) / 80 * (self.maxi - self.mini) + self.mini
+            0] - self.xpos - 10) / 80 * (self.maxi - self.mini) + self.mini
         if self.val < self.mini:
             self.val = self.mini
         if self.val > self.maxi:
