@@ -4,7 +4,7 @@ from random import randint
 from os import environ
 from button import Button
 from gc import collect
-from temp import Slider
+from slider import Slider
 
 environ['SDL_VIDEO_WINDOW_POS'] = "500,200"
 py.init()
@@ -16,8 +16,8 @@ py.display.set_icon(py.image.load("images/icon.png"))
 
 
 # Sliders
-arr_size = Slider("Rects", 10, 50, 1, 160, 12)
-speed = Slider("Speed", 60, 120, 10, 275, 12)
+arr_size = Slider(screen, "Rects", 10, 50, 1, 160, 12)
+speed = Slider(screen, "Speed", 60, 120, 10, 275, 12)
 slides = [arr_size, speed]
 
 # Values
@@ -179,8 +179,8 @@ while run:
     gen_arr_btn.draw(screen)
     [sort.draw(screen) for sort in sort_btns]
 
-    rect_width = arr_size.val
-    sort.FPS = s.val
+    rect_width = int(arr_size.val)
+    sort.FPS = int(s.val)
 
     if not arr_visualised:
         rects = []
