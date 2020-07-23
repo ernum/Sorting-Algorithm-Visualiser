@@ -1,10 +1,10 @@
 import pygame as pg
 import sort
 from random import randint
-from os import environ
 from button import Button
-from gc import collect
 from slider import Slider
+from os import environ
+from gc import collect
 
 environ['SDL_VIDEO_WINDOW_POS'] = "500,200"
 pg.init()
