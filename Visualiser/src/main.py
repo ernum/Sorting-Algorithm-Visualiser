@@ -1,8 +1,9 @@
 import pygame as pg
-import sort
 from random import randint
-from button import Button
-from slider import Slider
+from pathlib import Path
+from . import sort
+from .button import Button
+from .slider import Slider
 from os import environ
 from gc import collect
 
@@ -10,9 +11,10 @@ environ['SDL_VIDEO_WINDOW_POS'] = "500,200"
 pg.init()
 
 screen = pg.display.set_mode((800, 700))
+ICON_IMAGE = Path(__file__).absolute().parents[0] / "images" / "icon.png"
 
 pg.display.set_caption("Visualising Sorting Algorithms")
-pg.display.set_icon(pg.image.load("images/icon.png"))
+pg.display.set_icon(pg.image.load(str(ICON_IMAGE)))
 
 
 # Sliders
