@@ -4,6 +4,7 @@ from random import randint
 from os import environ
 from button import Button
 from gc import collect
+from temp import Slider
 
 environ['SDL_VIDEO_WINDOW_POS'] = "500,200"
 py.init()
@@ -14,7 +15,13 @@ py.display.set_caption("Visualising Sorting Algorithms")
 py.display.set_icon(py.image.load("images/icon.png"))
 
 
+# Sliders
+arr_size = Slider("Rects", 10, 50, 1, 160, 12)
+speed = Slider("Speed", 60, 120, 10, 275, 12)
+slides = [arr_size, speed]
+
 # Values
+
 run = True
 rect_width = 10
 start_pos = pos = 50
@@ -135,14 +142,33 @@ while run:
     for event in py.event.get():
         if event.type == py.QUIT:
             run = False
+        elif event.type == py.MOUSEBUTTONDOWN:
+            m_pos = py.mouse.get_pos()
+            for s in slides:
+                if s.button_rect.collidepoint(m_pos):
+                    s.hit = True
+                    if s is arr_size:
+                        pos = 50
+                        arr_visualised = False
+        elif event.type == py.MOUSEBUTTONUP:
+            for s in slides:
+                s.hit = False
 
         gen_arr_btn.get_event(event)
         sort_arr_btn.get_event(event)
         [sort.get_event(event) for sort in sort_btns]
 
+    for s in slides:
+        if s.hit:
+            s.move()
+
+    for s in slides:
+        s.draw()
+
     sort_arr_btn.draw(screen)
     gen_arr_btn.draw(screen)
     [sort.draw(screen) for sort in sort_btns]
+    rect_width = arr_size.val
 
     if not arr_visualised:
         rects = []
