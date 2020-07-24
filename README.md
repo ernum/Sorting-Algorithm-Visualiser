@@ -30,7 +30,7 @@ To download pygame, use ```pip install pygame```
 ```git clone git@github.com:ernum/Sorting-Algorithm-Visualiser.git```
 
 **Install:**  
-```cd Sorting-Algorithm-Visualiser```  
+```cd Sorting-Algorithm-Visualiser```
 ```pip install .```
 
 **Run:**  
