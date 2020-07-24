@@ -5,7 +5,6 @@ from . import sort
 from .button import Button
 from .slider import Slider
 from os import environ
-from gc import collect
 
 environ['SDL_VIDEO_WINDOW_POS'] = "500,200"
 pg.init()
@@ -35,7 +34,7 @@ def gen_arr_btn_action():
     arr_visualised = False
     pos = start_pos
     [sort.change_disabled_status() for sort in sort_btns if sort.disabled]
-    collect()
+    pg.event.pump()
 
 
 def sort_arr_btn_action():
