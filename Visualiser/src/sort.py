@@ -167,6 +167,7 @@ def swap(screen, rects, left, right, visualise):
     rects[right].bottom = 700
 
     clock.tick(FPS)
+    pg.event.pump()
 
 
 def merge_sort_visualisation(screen, rects, start, second_start, colour, left, right):
@@ -176,15 +177,18 @@ def merge_sort_visualisation(screen, rects, start, second_start, colour, left, r
     pg.draw.rect(screen, colour, rects[start])
     pg.draw.rect(screen, colour, rects[second_start])
     pg.display.update()
+
     clock.tick(FPS)
+    pg.event.pump()
 
 
 def visualisation(screen, rects, i):
     screen.fill((0, 0, 0))
-    draw_rects(rects, screen)
-    pg.draw.rect(screen, (0, 255, 0), rects[i])
+    draw_rects(rects, screen, i)
     pg.display.update()
+
     clock.tick(FPS)
+    pg.event.pump()
 
 
 def draw_rects(rects, screen, *exclude):
@@ -199,6 +203,8 @@ def draw_rects(rects, screen, *exclude):
             pg.draw.rect(screen, (255, 255, 255), rect)
         else:
             pg.draw.rect(screen, (0, 255, 0), rect)
+
+    pg.event.pump()
 
 
 def sort_completion_visualisation(rects, screen):
