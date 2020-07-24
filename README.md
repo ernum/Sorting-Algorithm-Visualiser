@@ -12,7 +12,10 @@ In this project, I've created demos visualising six different sorting algorithms
 | Bubble Sort | O(n<sup>2</sup>) | O(n<sup>2</sup>) |
 
 # Demos
-
+|                            |                            |                         |
+| -------------------------- | -------------------------- | ----------------------- |
+| ![](gifs/bubble-sort.gif)    | ![](gifs/heap-sort.gif) | ![](gifs/insertion-sort.gif)  |
+| ![](gifs/merge-sort.gif) | ![](gifs/quick-sort.gif)      | ![](gifs/selection-sort.gif)  |
 # Dependencies
 
 * Pygame
