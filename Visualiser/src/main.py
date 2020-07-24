@@ -11,7 +11,7 @@ environ['SDL_VIDEO_WINDOW_POS'] = "500,200"
 pg.init()
 
 screen = pg.display.set_mode((800, 700))
-ICON_IMAGE = Path(__file__).absolute().parents[0] / "images" / "icon.png"
+ICON_IMAGE = Path(__file__).absolute().parents[1] / "images" / "icon.png"
 
 pg.display.set_caption("Visualising Sorting Algorithms")
 pg.display.set_icon(pg.image.load(str(ICON_IMAGE)))
